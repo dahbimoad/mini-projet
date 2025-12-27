@@ -1,9 +1,7 @@
 package com.moad.miniprojet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import java.util.List;
 
 @Entity
@@ -18,8 +16,10 @@ public class Filiere {
     private String nom;
 
     @OneToMany(mappedBy = "filiere")
+    @ToString.Exclude
     private List<Eleve> eleves;
 
     @OneToMany(mappedBy = "filiere")
+    @ToString.Exclude
     private List<Cours> cours;
 }

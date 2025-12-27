@@ -1,9 +1,7 @@
 package com.moad.miniprojet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import java.util.List;
 
 @Entity
@@ -18,11 +16,14 @@ public class Eleve {
     private String prenom;
 
     @ManyToOne
+    @ToString.Exclude
     private Filiere filiere;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private DossierAdministratif dossierAdministratif;
 
     @ManyToMany
+    @ToString.Exclude
     private List<Cours> cours;
 }

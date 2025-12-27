@@ -1,9 +1,7 @@
 package com.moad.miniprojet.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import java.util.List;
 
 @Entity
@@ -18,8 +16,10 @@ public class Cours {
     private String intitule;
 
     @ManyToOne
+    @ToString.Exclude
     private Filiere filiere;
 
     @ManyToMany(mappedBy = "cours")
+    @ToString.Exclude
     private List<Eleve> eleves;
 }
