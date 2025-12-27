@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Détails Filière</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Gestion Scolaire</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/eleves">Élèves</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/filieres">Filières</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cours">Cours</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dossiers">Dossiers</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Détails de la Filière</h2>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${filiere.nom}">Nom Filière</h5>
+                <p class="card-text"><strong>ID :</strong> <span th:text="${filiere.id}"></span></p>
+                <p class="card-text"><strong>Code :</strong> <span th:text="${filiere.code}"></span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Élèves de la filière</h5>
+                        <ul th:if="${filiere.eleves != null and !filiere.eleves.isEmpty()}">
+                            <li th:each="eleve : ${filiere.eleves}" th:text="${eleve.nom} + ' ' + ${eleve.prenom}"></li>
+                        </ul>
+                        <p th:if="${filiere.eleves == null or filiere.eleves.isEmpty()}" class="text-muted">Aucun élève</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Cours de la filière</h5>
+                        <ul th:if="${filiere.cours != null and !filiere.cours.isEmpty()}">
+                            <li th:each="cours : ${filiere.cours}" th:text="${cours.intitule}"></li>
+                        </ul>
+                        <p th:if="${filiere.cours == null or filiere.cours.isEmpty()}" class="text-muted">Aucun cours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="/filieres" class="btn btn-secondary">Retour</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

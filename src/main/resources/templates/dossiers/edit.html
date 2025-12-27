@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Modifier Dossier Administratif</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Gestion Scolaire</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/eleves">Élèves</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/filieres">Filières</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cours">Cours</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/dossiers">Dossiers</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Modifier un Dossier</h2>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/dossiers/update}" th:object="${dossier}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="mb-3">
+                        <label for="numeroInscription" class="form-label">Numéro d'Inscription</label>
+                        <input type="text" class="form-control" id="numeroInscription" th:field="*{numeroInscription}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateCreation" class="form-label">Date de Création</label>
+                        <input type="date" class="form-control" id="dateCreation" th:field="*{dateCreation}" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Modifier</button>
+                    <a href="/dossiers" class="btn btn-secondary">Annuler</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
