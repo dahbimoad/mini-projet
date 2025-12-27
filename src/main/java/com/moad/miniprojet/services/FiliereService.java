@@ -24,6 +24,16 @@ public class FiliereService {
         return filiereRepository.save(filiere);
     }
 
+    public boolean canDelete(Long id) {
+        Filiere filiere = filiereRepository.findById(id).orElse(null);
+        if (filiere == null) return false;
+        
+        boolean hasEleves = filiere.getEleves() != null && !filiere.getEleves().isEmpty();
+        boolean hasCours = filiere.getCours() != null && !filiere.getCours().isEmpty();
+        
+        return !hasEleves && !hasCours;
+    }
+
     public void deleteFiliere(Long id) {
         filiereRepository.deleteById(id);
     }

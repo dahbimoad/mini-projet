@@ -1,9 +1,12 @@
 package com.moad.miniprojet.services;
 
 import com.moad.miniprojet.entities.DossierAdministratif;
+import com.moad.miniprojet.entities.Eleve;
 import com.moad.miniprojet.repositories.DossierAdministratifRepository;
+import com.moad.miniprojet.repositories.EleveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -11,6 +14,9 @@ public class DossierAdministratifService {
 
     @Autowired
     private DossierAdministratifRepository dossierAdministratifRepository;
+
+    @Autowired
+    private EleveRepository eleveRepository;
 
     public List<DossierAdministratif> getAllDossiers() {
         return dossierAdministratifRepository.findAll();
@@ -24,7 +30,18 @@ public class DossierAdministratifService {
         return dossierAdministratifRepository.save(dossier);
     }
 
-    public void deleteDossier(Long id) {
+    @Transactional
+    public boolean deleteDossier(Long id) {
+        DossierAdministratif dossier = dossierAdministratifRepository.findById(id).orElse(null);
+        if (dossier == null) return false;
+        
+        Eleve eleve = dossier.getEleve();
+        if (eleve != null) {
+            eleve.setDossierAdministratif(null);
+            eleveRepository.save(eleve);
+        }
+        
         dossierAdministratifRepository.deleteById(id);
+        return true;
     }
 }
